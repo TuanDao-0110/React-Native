@@ -2,7 +2,7 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
-
+import theme from '../theme';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'yellow',
@@ -64,8 +64,8 @@ const RepositoryList = () => {
   const ItemSeparator = () => <View style={styles.separator} />;
   const RenderItem = ({item}) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
-    const color = item.id === selectedId ? 'white' : 'black';
-    return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color} />;
+    const color = item.id === selectedId ? theme.colors.primary : theme.colors.textPrimary;
+    return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color}  />;
   };
   const [selectedId, setSelectedId] = useState('');
   return <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />;
