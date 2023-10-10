@@ -31,13 +31,14 @@ const : string = 'string'
 ```terminal
 npx expo install react-native-web@~0.18.7 react-dom@18.2.0 @expo/webpack-config@^0.17.0
 ```
-2. set up eslint: 
+
+2. set up eslint:
 
 ```terminal
 npm install --save-dev eslint @babel/eslint-parser eslint-plugin-react eslint-plugin-react-native
 ```
 
-by  following content: 
+by following content:
 
 ```json
 {
@@ -58,3 +59,44 @@ by  following content:
   }
 }
 ```
+
+3. connect to React native Debugger
+
+In simulator press:
+
+```
+cmd + d
+```
+
+In React Native Debugger:
+
+```
+Command+T on macOS, Ctrl+T on Linux/Windows
+```
+
+and set up connec to port to " 19000 "
+
+4. Core components:
+
+```javascript
+import { Text } from "react-native";
+
+const HelloWorld = (props) => {
+  return <Text>Hello world!</Text>;
+};
+```
+
+### There are more <a href='https://reactnative.dev/docs/components-and-apis'> core components</a>:
+
+```
+ Text component is the only React Native component that can have textual children. It is similar to for example the <strong> and the <h1> elements.
+```
+
+5.  <a href='https://reactnative.dev/docs/pressable'> Press component: </a>
+
+```jsx padded
+<Pressable onPress={onPressFunction}>
+  <Text>I'm pressable!</Text>
+</Pressable>
+```
+

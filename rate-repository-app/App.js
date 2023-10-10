@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import Main from './components/Main';
-
+// import Constants from 'expo-constants';
 
 
 export default function App() {
@@ -19,9 +18,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
-    flex: 1,
-    paddingTop: StatusBar.currentHeight,
+    backgroundColor: '#24292e',
+    // flex: 0,
+    // paddingTop: Constants.statusBarHeight,
   },
 });
 
