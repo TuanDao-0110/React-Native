@@ -100,3 +100,5 @@ const HelloWorld = (props) => {
 </Pressable>
 ```
 
+
+6. <a href='https://reactnative.dev/docs/flatlist'> FlatList component</a>

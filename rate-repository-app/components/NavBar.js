@@ -1,15 +1,20 @@
 import { View, StyleSheet, Text } from 'react-native';
+import Constants from 'expo-constants';
 
 
 const styles = StyleSheet.create({
     container: {
+        alignContent : 'center ',
         backgroundColor: '#24292e',
+        justifyContent:'center',
     },
     header1: {
-        alignContent:'center',
+        alignContent: 'center',
+        alignItems:'center',
         color: '#fff',
-        fontSize: 40,
+        fontSize: 20,
         justifyContent: 'center',
+        paddingBottom : Constants.statusBarHeight -30,
         paddingLeft: 20,
 
     }

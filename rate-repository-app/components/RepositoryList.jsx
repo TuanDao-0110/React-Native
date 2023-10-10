@@ -1,14 +1,15 @@
 /* eslint-disable react/prop-types */
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
 import theme from '../theme';
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'yellow',
+    backgroundColor: '#E1E5E7',
+    flex: 1,
   },
   separator: {
-    backgroundColor: 'blue',
+    // backgroundColor: '#E1E5E7',
     height: 10,
   },
 });
@@ -58,17 +59,24 @@ const repositories = [
     reviewCount: 0,
     ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
   },
+  
 ];
 
 const RepositoryList = () => {
   const ItemSeparator = () => <View style={styles.separator} />;
-  const RenderItem = ({item}) => {
-    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
+  const RenderItem = ({ item }) => {
+    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#fff';
     const color = item.id === selectedId ? theme.colors.primary : theme.colors.textPrimary;
-    return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color}  />;
+    return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color} />;
   };
   const [selectedId, setSelectedId] = useState('');
-  return <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />;
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default RepositoryList;

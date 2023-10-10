@@ -17,6 +17,7 @@ module.exports =
     'jsx-quotes' : ['error', 'prefer-single'],
     'quotes' : ['error', 'single'],
     'react-native/no-color-literals': 0,
+    'react-native/sort-styles' :0
   }
 }
 
