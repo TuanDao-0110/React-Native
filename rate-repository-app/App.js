@@ -1,13 +1,19 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import Main from './components/Main';
 import Constants from 'expo-constants';
+import { NativeRouter } from 'react-router-native';
 
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Main key={'main'} />
-    </View>
+    <>
+      <NativeRouter>
+        <View style={styles.container}>
+          <Main key={'main'} />
+        </View>
+        <StatusBar />
+      </NativeRouter>
+    </>
   );
 }
 

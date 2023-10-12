@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "lint-App": "eslint ./src/**/*.{js,jsx} App.js --no-error-on-unmatched-pattern",
     "lint-All": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
-    "lint-fix-All":"eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx ."
+    "lint-fix-All": "eslint --fix --ignore-path .gitignore --ext .js,.ts,.tsx ."
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
@@ -18,7 +18,8 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.9",
-    "react-native-web": "~0.18.7"
+    "react-native-web": "~0.18.7",
+    "react-router-native": "^6.16.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

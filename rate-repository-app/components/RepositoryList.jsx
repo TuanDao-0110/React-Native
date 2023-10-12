@@ -72,7 +72,7 @@ const RepositoryList = () => {
   const [selectedId, setSelectedId] = useState('');
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView >
         <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />
       </ScrollView>
     </SafeAreaView>
