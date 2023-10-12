@@ -2,6 +2,7 @@
 import { Text, StyleSheet, Pressable, Image, View } from 'react-native';
 import Constants from 'expo-constants';
 import { shortenNumber } from '../utils/helper';
+import Button from './Button';
 const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
   const { id, fullName, ownerAvatarUrl, forksCount, stargazersCount,
     ratingAverage,
@@ -17,22 +18,6 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
       paddingRight: 10,
       justifyContent: 'space-between',
       flexWrap: 'wrap'
-    },
-    button: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingVertical: 12,
-      borderRadius: 4,
-      elevation: 4,
-      backgroundColor: 'blue',
-      width: '50%',
-    },
-    textButton: {
-      fontSize: 16,
-      lineHeight: 21,
-      fontWeight: 'bold',
-      letterSpacing: 0.25,
-      color: 'white',
     },
     left: {
       flexGrow: 1,
@@ -85,7 +70,7 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
         <Text style={styles.fullName} >
           {fullName}
         </Text>
-        <Pressable
+        {/* <Pressable
           style={styles.button}
         >
           <Text style={styles.textButton}>
@@ -93,7 +78,8 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
             {language}
           </Text>
 
-        </Pressable>
+        </Pressable> */}
+        <Button content={language}/>
       </View>
       <View style={styles.numbers}  >
         <View style={styles.eachNumber}>

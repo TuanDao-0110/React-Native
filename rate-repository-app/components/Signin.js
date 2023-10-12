@@ -1,19 +1,7 @@
-import { StyleSheet, View, Text } from 'react-native';
-
-
+import MyReactNativeForm from './Form';
 const Signin = () => {
-    const styles = StyleSheet.create({
-        container: {
-
-        }
-    })
-
     return (
-        <View style={styles.container}>
-            <Text>
-                sing in
-            </Text>
-        </View>
+        <MyReactNativeForm />
     )
 }
 export default Signin

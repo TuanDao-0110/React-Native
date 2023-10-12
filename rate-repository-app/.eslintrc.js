@@ -12,12 +12,13 @@ module.exports =
     'react-native/react-native': true
   },
   'rules': {
-    'react/prop-types': 2,
+    'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
     'jsx-quotes' : ['error', 'prefer-single'],
     'quotes' : ['error', 'single'],
     'react-native/no-color-literals': 0,
-    'react-native/sort-styles' :0
+    'react-native/sort-styles' :0,
+
   }
 }
 
