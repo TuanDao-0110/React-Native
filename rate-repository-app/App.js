@@ -1,4 +1,4 @@
-import { View, StyleSheet, StatusBar } from 'react-native';
+import {  View, StyleSheet, StatusBar } from 'react-native';
 import Main from './components/Main';
 import Constants from 'expo-constants';
 import { NativeRouter } from 'react-router-native';

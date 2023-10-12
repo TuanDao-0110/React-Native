@@ -15,6 +15,10 @@ const theme = {
         normal: '400',
         bold: '700',
     },
+    fontFamily: { 
+        ios : 'Arial',
+        android : 'Sans-Serif',
+    }
 };
 
 export default theme;

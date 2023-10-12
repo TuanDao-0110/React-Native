@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-native/sort-styles */
-import { Text as NativeText, StyleSheet } from 'react-native';
+import { Text as NativeText, StyleSheet, Platform } from 'react-native';
 
 import theme from '../theme';
 
@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
     fontWeightBold: {
         fontWeight: theme.fontWeights.bold,
     },
+    fontFamily: {
+        fontFamily: Platform.OS === 'ios' ? theme.fontFamily.ios : theme.fontFamily.android
+    }
 });
 
 const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
@@ -32,6 +35,7 @@ const Text = ({ color, fontSize, fontWeight, style, ...props }) => {
         color === 'primary' && styles.colorPrimary,
         fontSize === 'subheading' && styles.fontSizeSubheading,
         fontWeight === 'bold' && styles.fontWeightBold,
+        styles.fontFamily,
         style,
     ];
 

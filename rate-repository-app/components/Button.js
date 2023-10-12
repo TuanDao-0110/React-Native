@@ -1,5 +1,6 @@
 
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
+import Text from '../theme/Text'
 
 const Button = ({ content, onPress }) => {
     const styles = StyleSheet.create({
@@ -25,7 +26,7 @@ const Button = ({ content, onPress }) => {
     return <Pressable style={styles.button}
     onPress={onPress}
     >
-        <Text style={styles.textButton} >
+        <Text  style={styles.textButton} >
             {content}
         </Text>
     </Pressable>

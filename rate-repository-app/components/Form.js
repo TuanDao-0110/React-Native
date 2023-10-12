@@ -2,7 +2,7 @@
 /* eslint-disable no-dupe-keys */
 /* eslint-disable react-native/no-unused-styles */
 import React from 'react';
-import { StyleSheet, TextInput, View, Switch, Text } from 'react-native';
+import { StyleSheet, TextInput, View, Switch, Text, Platform } from 'react-native';
 import { Formik } from 'formik';
 import Button from './Button';
 import { useState } from 'react';
@@ -28,11 +28,10 @@ const MyReactNativeForm = props => {
             width: '100%',
             height: '100%',
             alignItems: 'center',
-            backgroundColor: 'white',
+            backgroundColor: Platform.OS === 'ios' ? 'white' : 'blue',
             padding: 10,
             paddingTop: 100,
             // elevation: 10,
-            backgroundColor: '#e6e6e6',
         },
         textInput: {
             height: 40,
@@ -46,7 +45,7 @@ const MyReactNativeForm = props => {
         toggle: {
             marginTop: 5
         }, errors:
-            { fontSize: 10, color: 'red' }
+            { fontSize: 10, color: 'red',paddingBottom : 10 }
 
     })
     return <Formik

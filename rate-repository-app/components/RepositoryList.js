@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { FlatList, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { FlatList, View, StyleSheet, } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
 import theme from '../theme';
@@ -59,7 +59,7 @@ const repositories = [
     reviewCount: 0,
     ownerAvatarUrl: 'https://avatars3.githubusercontent.com/u/13142323?v=4',
   },
-  
+
 ];
 
 const RepositoryList = () => {
@@ -71,11 +71,9 @@ const RepositoryList = () => {
   };
   const [selectedId, setSelectedId] = useState('');
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView >
-        <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />
+    </>
   );
 };
 

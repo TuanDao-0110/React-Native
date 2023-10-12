@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Text, StyleSheet, Pressable, Image, View } from 'react-native';
+import {  StyleSheet, Pressable, Image, View } from 'react-native';
 import Constants from 'expo-constants';
 import { shortenNumber } from '../utils/helper';
 import Button from './Button';
+import Text from '../theme/Text';
 const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
   const { id, fullName, ownerAvatarUrl, forksCount, stargazersCount,
     ratingAverage,
