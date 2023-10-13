@@ -2,7 +2,9 @@
 import { FlatList, View, StyleSheet, } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
-import theme from '../theme';
+import theme from '../theme/theme';
+// import useRepositories from '../graphQL/hooks/useRespositories';
+import { GET_REPOSITORIES } from '../graphQL/queries';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#E1E5E7',
@@ -63,6 +65,14 @@ const repositories = [
 ];
 
 const RepositoryList = () => {
+  // const { loading, repositories: templist, refetch } = useRepositories(GET_REPOSITORIES, {
+  //   fetchPolicy: 'cache-and-network',
+  // })
+  // const repositoryNodes = templist
+  //   ? templist.edges.map(edge => edge.node)
+  //   : [];
+  // console.log('testing')
+  // console.log(repositoryNodes)
   const ItemSeparator = () => <View style={styles.separator} />;
   const RenderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#fff';

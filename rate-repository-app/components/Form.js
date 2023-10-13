@@ -15,6 +15,7 @@ const loginValidationSchema = yup.object().shape({
     password: yup
         .string()
         .min(8, ({ min }) => `Password must be at least ${min} characters`)
+        .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
         .required('Password is required'),
 })
 

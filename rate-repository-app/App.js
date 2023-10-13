@@ -1,19 +1,21 @@
-import {  View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import Main from './components/Main';
 import Constants from 'expo-constants';
 import { NativeRouter } from 'react-router-native';
-
+import { ApolloProvider } from '@apollo/client'
+import createApolloClient from './graphQL/apolloClient';
 
 export default function App() {
+  const apolloClient = createApolloClient()
   return (
-    <>
-      <NativeRouter>
+    <NativeRouter>
+      <ApolloProvider client={apolloClient}>
         <View style={styles.container}>
           <Main key={'main'} />
         </View>
         <StatusBar />
-      </NativeRouter>
-    </>
+      </ApolloProvider>
+    </NativeRouter>
   );
 }
 

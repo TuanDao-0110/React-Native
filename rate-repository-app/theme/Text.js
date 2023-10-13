@@ -2,7 +2,7 @@
 /* eslint-disable react-native/sort-styles */
 import { Text as NativeText, StyleSheet, Platform } from 'react-native';
 
-import theme from '../theme';
+import theme from './theme';
 
 const styles = StyleSheet.create({
     text: {
