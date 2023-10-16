@@ -7,21 +7,23 @@ import { Formik } from 'formik';
 import Button from './Button';
 import { useState } from 'react';
 import * as yup from 'yup';
+import useSignIn from '../graphQL/hooks/useSignIn';
+import { Token } from '../utils/localStore';
 const loginValidationSchema = yup.object().shape({
     email: yup
-        .string()
-        .email('Please enter valid email')
-        .required('Email Address is Required'),
+        .string(),
+    // .email('Please enter valid email')
+    // .required('Email Address is Required'),
     password: yup
         .string()
-        .min(8, ({ min }) => `Password must be at least ${min} characters`)
-        .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
-        .required('Password is required'),
+    // .min(8, ({ min }) => `Password must be at least ${min} characters`)
+    // .matches(/\w*[a-z]\w*/, 'Password must have a small letter')
+    // .required('Password is required'),
 })
 
 
 const MyReactNativeForm = props => {
-
+    const [signIn] = useSignIn()
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     const styles = StyleSheet.create({
@@ -46,13 +48,22 @@ const MyReactNativeForm = props => {
         toggle: {
             marginTop: 5
         }, errors:
-            { fontSize: 10, color: 'red',paddingBottom : 10 }
+            { fontSize: 10, color: 'red', paddingBottom: 10 }
 
     })
+    const onSubmit = async (username, password) => {
+        const credentials = { username, password }
+        try {
+            const { data } = await signIn({ variables: { credentials } })
+            const token = new Token(data.authenticate.accessToken)
+            await token.setToken()
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={values => console.log(values)}
-
+        onSubmit={values => onSubmit(values.email, values.password)}
         validationSchema={loginValidationSchema}
     >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (

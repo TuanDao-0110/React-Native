@@ -23,12 +23,3 @@ query Repositories {
   }
 }
 `;
-
-
-// other queries...
-
-
-
-export const GET_ALL_AUTHOR = gql`
-query {  allAuthors  { bookCount,born,name}}
-`

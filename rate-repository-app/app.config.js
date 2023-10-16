@@ -32,7 +32,7 @@ export default {
       'favicon': './assets/favicon.png'
     },
     'extra': {
-      url: process.env.ENV
+      url: process.env.APOLLO_URI
     }
   },
 }

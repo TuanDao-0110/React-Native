@@ -38,11 +38,10 @@ const RepositoryList = () => {
   const [selectedId, setSelectedId] = useState('');
   useEffect(() => {
     if (!loading) {
-      // setRespositories(data.repositories.edges.map(e => e.node))
       let temp = (data.repositories.edges.map(e => e.node))
       setRespositories([...temp])
     }
-  }, [data])
+  }, [loading])
   return (
     <>
       {/* <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />  */}
