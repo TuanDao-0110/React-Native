@@ -5,6 +5,8 @@ import { Route, Routes, Navigate } from 'react-router-native'
 import { singin } from '../utils/router';
 import Signin from './Signin';
 
+
+
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
@@ -12,6 +14,8 @@ const styles = StyleSheet.create({
     },
 });
 const Main = () => {
+    
+
     return (
         <View style={styles.container}>
             <AppBar />
