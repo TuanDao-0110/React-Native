@@ -5,8 +5,14 @@ import { NativeRouter } from 'react-router-native';
 import { ApolloProvider } from '@apollo/client'
 import createApolloClient from './graphQL/apolloClient';
 
+
+
 export default function App() {
   const apolloClient = createApolloClient()
+  console.log('mainfest')
+  console.log(
+    Constants.manifest.extra.url
+  )
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
