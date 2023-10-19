@@ -1,11 +1,10 @@
-import {  StyleSheet, View } from 'react-native';
+/* eslint-disable no-unused-vars */
+import { StyleSheet, View } from 'react-native';
 import RepositoryList from './RepositoryList';
 import AppBar from './NavBar';
 import { Route, Routes, Navigate } from 'react-router-native'
 import { singin } from '../utils/router';
 import Signin from './Signin';
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -26,5 +25,4 @@ const Main = () => {
 
     );
 };
-
 export default Main;

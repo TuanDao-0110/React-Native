@@ -4,15 +4,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Token {
     nameToken = 'userToken'
-    token
-    constructor(token) {
-        this.token = token
+
+    constructor() {
+
     }
     showNameToken() {
         return this.nameToken
     }
-    async setToken() {
-        await AsyncStorage.setItem(`${this.nameToken}`, JSON.stringify(this.token))
+    async setToken(token) {
+         await AsyncStorage.setItem(`${this.nameToken}`, JSON.stringify(token))
     }
     async getToken() {
         const data = await AsyncStorage.getItem(`${this.nameToken}`)

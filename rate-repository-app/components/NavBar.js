@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
 
 const AppBar = () => {
     const navigate = useNavigate()
+
     return <View style={styles.container}>
         <ScrollView horizontal>
             <Text onPress={() => { navigate('/') }} style={styles.header1}>Respositories</Text>

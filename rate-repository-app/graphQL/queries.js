@@ -23,3 +23,14 @@ query Repositories {
   }
 }
 `;
+
+
+
+export const ME = gql` 
+query Query {
+  me {
+    id
+    username
+  }
+}
+`

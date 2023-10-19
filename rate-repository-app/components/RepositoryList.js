@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { FlatList, View, StyleSheet, Text, } from 'react-native';
 import RepositoryItem from './RepositoryItem';
@@ -13,20 +14,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   separator: {
-    // backgroundColor: '#E1E5E7',
     height: 10,
   },
 });
 
 
 const RepositoryList = () => {
-  // const { repositories:list  } = useRepositories();
-  // const repositoryNodes = list
-  //   ? list.edges.map(edge => edge.node)
-  //   : [];
   const [repositories, setRespositories] = useState([])
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network'
+    fetchPolicy: 'cache-and-network',
   });
 
   const ItemSeparator = () => <View style={styles.separator} />;
@@ -38,13 +34,12 @@ const RepositoryList = () => {
   const [selectedId, setSelectedId] = useState('');
   useEffect(() => {
     if (!loading) {
-      let temp = (data.repositories.edges.map(e => e.node))
+      let temp = (data?.repositories.edges.map(e => e.node))
       setRespositories([...temp])
     }
   }, [loading])
   return (
     <>
-      {/* <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} />  */}
       {
         !loading ? <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} /> : <Text style={styles.container}>loading</Text>
       }
