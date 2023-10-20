@@ -6,7 +6,7 @@ module.exports =
       'version': 'detect'
     }
   },
-  'extends': ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-native/all'],
+  'extends': ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-native/all','plugin:jest/recommended'],
   'parser': '@babel/eslint-parser',
   'env': {
     'react-native/react-native': true

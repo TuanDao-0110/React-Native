@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {  StyleSheet, Pressable, Image, View } from 'react-native';
+import { StyleSheet, Pressable, Image, View } from 'react-native';
 import Constants from 'expo-constants';
 import { shortenNumber } from '../utils/helper';
 import Button from './Button';
@@ -62,7 +62,7 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
   });
 
   return (
-    <Pressable onPress={onPress} style={styles.item}>
+    <Pressable onPress={onPress} style={styles.item} testID='repositoryItem'>
       <Image source={{ uri: ownerAvatarUrl }} style={styles.tinyLog} />
       <View style={styles.left} >
         <Text style={styles.textId}>
@@ -80,7 +80,7 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
           </Text>
 
         </Pressable> */}
-        <Button content={language}/>
+        <Button content={language} />
       </View>
       <View style={styles.numbers}  >
         <View style={styles.eachNumber}>

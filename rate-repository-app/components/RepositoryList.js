@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphQL/queries';
 import { useEffect } from 'react';
 
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#E1E5E7',
@@ -17,31 +18,45 @@ const styles = StyleSheet.create({
     height: 10,
   },
 });
-
-
-const RepositoryList = () => {
-  const [repositories, setRespositories] = useState([])
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
-  });
-
+export const RepositoryListContainer = ({ repositories }) => {
+  const [selectedId, setSelectedId] = useState('');
+  const repositoryNodes = repositories
+    ? repositories?.edges.map((edge) => edge.node)
+    : [];
   const ItemSeparator = () => <View style={styles.separator} />;
   const RenderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#fff';
     const color = item.id === selectedId ? theme.colors.primary : theme.colors.textPrimary;
-    return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color} />;
+    return <RepositoryItem  data={item} backgroundColor={backgroundColor} onPress={() => setSelectedId(item.id)} textColor={color} />;
   };
-  const [selectedId, setSelectedId] = useState('');
+
+  return (
+    < FlatList
+      data={repositoryNodes}
+      style={styles.container}
+      ItemSeparatorComponent={ItemSeparator} 
+      renderItem={RenderItem} 
+    />
+  );
+};
+
+
+
+const RepositoryList = () => {
+  const [repositories, setRespositories] = useState(null)
+  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+    fetchPolicy: 'cache-and-network',
+  });
   useEffect(() => {
     if (!loading) {
-      let temp = (data?.repositories.edges.map(e => e.node))
-      setRespositories([...temp])
+      // let temp = (data?.repositories.edges.map(e => e.node))
+      setRespositories(data.repositories)
     }
   }, [loading])
   return (
     <>
       {
-        !loading ? <FlatList style={styles.container} data={repositories} ItemSeparatorComponent={ItemSeparator} renderItem={RenderItem} /> : <Text style={styles.container}>loading</Text>
+        !loading ? <RepositoryListContainer  repositories={repositories} /> : <Text style={styles.container}>loading</Text>
       }
     </>
   )
