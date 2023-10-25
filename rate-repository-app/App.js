@@ -6,16 +6,18 @@ import { ApolloProvider } from '@apollo/client'
 import createApolloClient from './graphQL/apolloClient';
 import { Token } from './utils/localStore';
 import AuthStorageContext from './context/authStorageContext';
+import { useState } from 'react';
 
 
 
 export default function App() {
   const authStorage = new Token()
+  const [login, setLogin] = useState(false)
   const apolloClient = createApolloClient(authStorage)
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
-        <AuthStorageContext.Provider value={authStorage}>
+        <AuthStorageContext.Provider value={[authStorage,login,setLogin]}>
           <View style={styles.container}>
             <Main key={'main'} />
           </View>

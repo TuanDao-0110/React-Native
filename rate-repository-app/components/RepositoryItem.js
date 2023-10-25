@@ -4,16 +4,20 @@ import Constants from 'expo-constants';
 import { shortenNumber } from '../utils/helper';
 import Button from './Button';
 import Text from '../theme/Text';
+import { useParams } from 'react-router';
+import * as Linking from 'expo-linking';
+
 const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
+  const {id:userID} =useParams()
   const { id, fullName, ownerAvatarUrl, forksCount, stargazersCount,
-    ratingAverage,
+    ratingAverage,url,
     reviewCount, language } = data
   const styles = StyleSheet.create({
     item: {
       backgroundColor: backgroundColor,
       color: textColor,
       flexDirection: 'row',
-      paddingBottom: Constants.statusBarHeight,
+      // paddingBottom: Constants.statusBarHeight,
       paddingTop: Constants.statusBarHeight,
       paddingLeft: 10,
       paddingRight: 10,
@@ -21,12 +25,13 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
       flexWrap: 'wrap'
     },
     left: {
-      flexGrow: 1,
-      paddingLeft: Constants.statusBarHeight,
-    },
+      width : '80%',
+      paddingLeft : 1,
+      // backgroundColor :'blue'
+    }
+    ,
     textId: {
-      fontSize: 30,
-
+      fontSize: 25,
     },
     fullName: {
       paddingBottom: 5,
@@ -35,7 +40,7 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
     tinyLog: {
       height: 60,
       width: 60,
-      borderRadius: 5
+      borderRadius: 5,
     },
     numbers: {
       flexDirection: 'row',
@@ -58,6 +63,11 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
       textAlign: 'center',
       fontSize: 15,
       paddingTop: 10
+    },
+    openGithub: {
+      flexGrow: 1,
+      width: '200%',
+      paddingTop: 10
     }
   });
 
@@ -71,15 +81,6 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
         <Text style={styles.fullName} >
           {fullName}
         </Text>
-        {/* <Pressable
-          style={styles.button}
-        >
-          <Text style={styles.textButton}>
-
-            {language}
-          </Text>
-
-        </Pressable> */}
         <Button content={language} />
       </View>
       <View style={styles.numbers}  >
@@ -116,9 +117,13 @@ const RepositoryItem = ({ data, onPress, backgroundColor, textColor }) => {
           <Text style={styles.numberInfo}>
             Reviews
           </Text>
-
         </View>
       </View>
+      {userID && <View style={styles.openGithub}>
+        <Button content={'open in github'} onPress={() => {
+          Linking.openURL((url));
+        }} />
+      </View>}
     </Pressable>
   );
 };

@@ -17,7 +17,6 @@ const loginValidationSchema = yup.object().shape({
 const LogInForm = ({onSubmit}) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  
     const styles = StyleSheet.create({
         textInput: {
             height: 40,

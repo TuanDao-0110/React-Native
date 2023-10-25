@@ -19,6 +19,7 @@ const Button = ({ content, onPress }) => {
             fontWeight: 'bold',
             letterSpacing: 0.25,
             color: 'white',
+            textTransform :'capitalize'
         },
     })
 

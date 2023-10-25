@@ -18,6 +18,7 @@ query Repositories {
         ratingAverage
         ownerName
         reviewCount
+        url
       }
     }
   }
@@ -31,6 +32,30 @@ query Query {
   me {
     id
     username
+  }
+}
+`
+
+
+export const SINGLE_REPOSITORIES =gql`
+{
+  repository(id: "jaredpalmer.formik") {
+    id
+    fullName
+    reviews {
+      edges {
+        node {
+          id
+          text
+          rating
+          createdAt
+          user {
+            id
+            username
+          }
+        }
+      }
+    }
   }
 }
 `

@@ -12,7 +12,8 @@ export class Token {
         return this.nameToken
     }
     async setToken(token) {
-         await AsyncStorage.setItem(`${this.nameToken}`, JSON.stringify(token))
+        await AsyncStorage.setItem(`${this.nameToken}`, JSON.stringify(token))
+        return
     }
     async getToken() {
         const data = await AsyncStorage.getItem(`${this.nameToken}`)
@@ -21,5 +22,6 @@ export class Token {
     }
     async deleteToken() {
         await AsyncStorage.removeItem(`${this.nameToken}`)
+        return
     }
 }
