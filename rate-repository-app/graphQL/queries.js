@@ -36,10 +36,9 @@ query Query {
 }
 `
 export const SINGLE_REPOSITORIES = gql`
-{
-  repository(id: "jaredpalmer.formik") {
+query Query($repositoryId: ID!) {
+  repository(id: $repositoryId) {
     id
-    fullName
     reviews {
       edges {
         node {
@@ -95,9 +94,19 @@ export const GET_CURRENT_USER = gql`
             text
             rating
             repository {
-              fullName
-              name
-              ownerName
+             createdAt
+        description
+        forksCount
+        language
+        name
+        id
+        fullName
+        ownerAvatarUrl
+        stargazersCount
+        ratingAverage
+        ownerName
+        reviewCount
+        url
             }
           }
         }

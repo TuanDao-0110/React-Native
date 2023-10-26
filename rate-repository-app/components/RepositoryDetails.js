@@ -1,4 +1,6 @@
+/* eslint-disable react-native/no-raw-text */
 import { useLocation } from 'react-router'
+import { useNavigate } from 'react-router-native'
 import RepositoryItem from './RepositoryItem'
 
 import theme from '../theme/theme'
@@ -6,12 +8,12 @@ import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react
 import { useQuery } from '@apollo/client'
 import { SINGLE_REPOSITORIES } from '../graphQL/queries'
 import { setDate } from '../utils/helper'
+import { Button } from 'react-native-paper'
 
 const styles = StyleSheet.create({
     viewContainer: {
         backgroundColor: '#FFFFFF',
-        // height: '90%',
-        // flex: 1,
+        height: '90%',
         marginTop: StatusBar.currentHeight || 0,
     },
     separator: {
@@ -52,41 +54,73 @@ const styles = StyleSheet.create({
     discription: {
         fontSize: 14,
         textAlign: 'justify',
-        fontWeight: '400', 
+        fontWeight: '400',
         marginBottom: 50
+    },
+    buttonGroup: {
+        flexDirection: 'row',
+        gap: 5,
+        justifyContent: 'space-around',
+        marginBottom: 10
+    }
+    ,
+    error: {
+        backgroundColor: 'red',
+        width: '40%',
+        borderRadius: 5
+    },
+    success: {
+        backgroundColor: 'blue',
+        width: '40%',
+        borderRadius: 5
+
     }
 })
 const ItemSeparator = () => <View style={styles.separator} />;
 
-export const Review = ({ review }) => {
+export const Review = ({ review, deleteFn }) => {
+    const naviagate = useNavigate()
     const { id,
         text,
         rating,
         createdAt,
         user,
-        repository
+        repository,
+        repositoryId
     } = review.node
-    return <View style={styles.item}>
-        <View
-            style={styles.circle}
-        >
-            <Text style={styles.rating}>
-                {rating}
-            </Text>
+    return <>
+        <View style={styles.item}>
+            <View
+                style={styles.circle}
+            >
+                <Text style={styles.rating}>
+                    {rating}
+                </Text>
+            </View>
+            <View style={styles.content}>
+                <Text style={styles.username}>{user && user.username}{repository && repository.fullName}</Text>
+                <Text style={styles.time}>{setDate(createdAt)}</Text>
+                <Text style={styles.discription} key={id}>
+                    {text}
+                </Text>
+            </View>
         </View>
-        <View style={styles.content}>
-            <Text style={styles.username}>{user &&user.username}{repository && repository.fullName}</Text>
-            <Text style={styles.time}>{setDate(createdAt)}</Text>
-            <Text style={styles.discription} key={id}>
-                {text}
-            </Text>
-        </View>
-    </View>
+        {
+            repository &&
+            <View style={styles.buttonGroup}>
+                <Button textColor='#ffff' style={styles.success} onPress={() => {
+                    naviagate(`/${repositoryId}`, { state: { ...review.node.repository } })
+                }}>View Repository </Button>
+                <Button textColor='#ffff' onPress={() => deleteFn(id)} style={styles.error}>Delete </Button>
+            </View >
+        }
+    </>
 }
 const RespositoryDetails = () => {
     const { state } = useLocation()
     const { data, loading } = useQuery(SINGLE_REPOSITORIES, {
         fetchPolicy: 'cache-and-network',
+        variables: { repositoryId: state.id }
     })
     if (loading) { return <Text>loading</Text> }
     return <SafeAreaView
@@ -94,7 +128,7 @@ const RespositoryDetails = () => {
     >
         {data && <FlatList
             data={data.repository.reviews.edges}
-            renderItem={({ item }) => <Review review={item} />
+            renderItem={({ item }) => <Review key={item.id} review={item} />
             }
             keyExtractor={({ id }) => id}
             ItemSeparatorComponent={ItemSeparator}

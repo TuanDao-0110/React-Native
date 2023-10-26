@@ -14,6 +14,8 @@ import SelectDiago from './SelectDiago';
 import { Icon, MD3Colors } from 'react-native-paper';
 import SearchRepo from './SearchBar';
 import useFindRepo from '../graphQL/hooks/useFIndRepo';
+import { useContext } from 'react';
+import AuthStorageContext from '../context/authStorageContext';
 
 
 const styles = StyleSheet.create({
@@ -49,6 +51,7 @@ export const RepositoryListContainer = ({ repositories, findRepo }) => {
     const color = item.id === selectedId ? theme.colors.primary : theme.colors.textPrimary;
     return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => {
       setSelectedId(item.id)
+      console.log(item)
       naviagate(`/${item.id}`, { state: item })
     }
     } textColor={color}
@@ -99,7 +102,6 @@ const RepositoryList = () => {
   useEffect(() => {
     if (findRepoData) {
       if (findRepoData?.repositories.edges.length > 0) {
-        console.log('here')
         setRespositories(findRepoData.repositories)
       }
     }
