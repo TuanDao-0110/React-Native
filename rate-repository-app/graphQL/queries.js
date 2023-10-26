@@ -59,3 +59,27 @@ export const SINGLE_REPOSITORIES =gql`
   }
 }
 `
+export const FIND_REPOSITORIES =gql` 
+query ($searchKeyword: String) {
+  repositories(searchKeyword: $searchKeyword) {
+    edges {
+      cursor
+      node {
+        createdAt
+        description
+        forksCount
+        language
+        name
+        id
+        fullName
+        ownerAvatarUrl
+        stargazersCount
+        ratingAverage
+        ownerName
+        reviewCount
+        url
+      }
+    }
+  }
+}
+`

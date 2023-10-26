@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { FlatList, View, StyleSheet, Text, } from 'react-native';
+import { FlatList, View, StyleSheet, Text, Pressable, } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
 import theme from '../theme/theme';
@@ -8,6 +8,12 @@ import { useQuery } from '@apollo/client';
 import { GET_REPOSITORIES } from '../graphQL/queries';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import { sortArrayOfObjectsByDate } from '../utils/helper';
+import { highestRate, lastestRepo, lowestRate } from '../utils/router';
+import SelectDiago from './SelectDiago';
+import { Icon, MD3Colors } from 'react-native-paper';
+import SearchRepo from './SearchBar';
+import useFindRepo from '../graphQL/hooks/useFIndRepo';
 
 
 const styles = StyleSheet.create({
@@ -18,14 +24,25 @@ const styles = StyleSheet.create({
   separator: {
     height: 10,
   },
+  header: {
+    marginVertical: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  sort: {
+    fontSize: 40,
+  }
 });
-export const RepositoryListContainer = ({ repositories }) => {
+export const RepositoryListContainer = ({ repositories, findRepo }) => {
   const [selectedId, setSelectedId] = useState('');
+  const [sort, setSort] = useState(highestRate)
+  const [visible, setVisible] = useState(false);
   const naviagate = useNavigate()
   const repositoryNodes = repositories
     ? repositories?.edges.map((edge) => edge.node)
     : [];
-  console.log(repositoryNodes)
+
   const ItemSeparator = () => <View style={styles.separator} />;
   const RenderItem = ({ item }) => {
     const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#fff';
@@ -41,11 +58,32 @@ export const RepositoryListContainer = ({ repositories }) => {
 
   return (
     < FlatList
-      data={repositoryNodes}
+      data={sortArrayOfObjectsByDate(repositoryNodes, sort)}
       style={styles.container}
       ItemSeparatorComponent={ItemSeparator}
       renderItem={RenderItem}
+      ListHeaderComponent={() =>
+        <>
+          <SearchRepo findRepo={findRepo} />
+          <Pressable
+            style={styles.header}
+            onPress={() => setVisible(true)}
+          >
+            <Text
+              style={styles.sort}
+            >
+              {sort}
+            </Text>
 
+            <Icon
+              source='arrow-down'
+              color={MD3Colors.secondary0}
+              size={30}
+            />
+          </Pressable>
+          <SelectDiago setVisible={setVisible} visible={visible} setSort={setSort} />
+        </>
+      }
     />
   );
 };
@@ -57,15 +95,25 @@ const RepositoryList = () => {
   const { data, error, loading } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: 'cache-and-network',
   });
+  const [findRepo, findRepoData, findRepoLoading, findRepoError, findRepoCalled] = useFindRepo()
   useEffect(() => {
-    if (!loading) {
+    if (findRepoData) {
+      if (findRepoData?.repositories.edges.length > 0) {
+        console.log('here')
+        setRespositories(findRepoData.repositories)
+      }
+    }
+  }, [findRepoData, findRepoLoading, findRepoCalled])
+
+  useEffect(() => {
+    if (!loading && !findRepoData) {
       setRespositories(data.repositories)
     }
   }, [loading])
   return (
     <>
       {
-        !loading ? <RepositoryListContainer repositories={repositories} /> : <Text style={styles.container}>loading</Text>
+        !loading ? <RepositoryListContainer repositories={repositories} findRepo={findRepo} /> : <Text style={styles.container}>loading</Text>
       }
     </>
   )

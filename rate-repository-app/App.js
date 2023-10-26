@@ -7,7 +7,7 @@ import createApolloClient from './graphQL/apolloClient';
 import { Token } from './utils/localStore';
 import AuthStorageContext from './context/authStorageContext';
 import { useState } from 'react';
-
+import { PaperProvider } from 'react-native-paper';
 
 
 export default function App() {
@@ -17,10 +17,12 @@ export default function App() {
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
-        <AuthStorageContext.Provider value={[authStorage,login,setLogin]}>
-          <View style={styles.container}>
-            <Main key={'main'} />
-          </View>
+        <AuthStorageContext.Provider value={[authStorage, login, setLogin]}>
+          <PaperProvider>
+            <View style={styles.container}>
+              <Main key={'main'} />
+            </View>
+          </PaperProvider>
         </AuthStorageContext.Provider>
         <StatusBar />
       </ApolloProvider>

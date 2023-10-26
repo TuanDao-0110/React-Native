@@ -1,3 +1,6 @@
 export const singin= 'Singin'
 export const review = 'Review'
 export const signup  = 'Sign up'
+export const lastestRepo = 'lastestRepo'
+export const highestRate = 'highestRate'
+export const lowestRate = 'lowestRate'

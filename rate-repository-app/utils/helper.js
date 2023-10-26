@@ -1,4 +1,6 @@
-export const shortenNumber=(number) =>{
+import { highestRate, lastestRepo, lowestRate } from './router';
+
+export const shortenNumber = (number) => {
     if (number >= 1000 && number < 1000000) {
         return (number / 1000).toFixed(1) + 'k';
     } else if (number >= 1000000) {
@@ -10,7 +12,7 @@ export const shortenNumber=(number) =>{
 
 
 
-export const setDate = (isoDate)=> { 
+export const setDate = (isoDate) => {
     const date = new Date(isoDate);
 
     const day = date.getDate().toString().padStart(2, '0');
@@ -18,5 +20,19 @@ export const setDate = (isoDate)=> {
     const year = date.getFullYear();
 
     const formattedDate = `${day}.${month}.${year}`;
-return formattedDate
+    return formattedDate
+}
+
+export const sortArrayOfObjectsByDate = (list, required) => {
+    if (required === lastestRepo) {
+        return list.sort((a, b) => new Date(a['createdAt']) - new Date(b['createdAt']));
+    }
+    if (required === highestRate) {
+        return list.sort((a, b) => b.ratingAverage - a.ratingAverage);
+    }
+    if (required === lowestRate) {
+
+        return list.sort((a, b) => a.ratingAverage - b.ratingAverage);
+    }
+    return list
 }
