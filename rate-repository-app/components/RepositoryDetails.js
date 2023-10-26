@@ -58,12 +58,13 @@ const styles = StyleSheet.create({
 })
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const Review = ({ review }) => {
+export const Review = ({ review }) => {
     const { id,
         text,
         rating,
         createdAt,
-        user
+        user,
+        repository
     } = review.node
     return <View style={styles.item}>
         <View
@@ -74,7 +75,7 @@ const Review = ({ review }) => {
             </Text>
         </View>
         <View style={styles.content}>
-            <Text style={styles.username}>{user.username}</Text>
+            <Text style={styles.username}>{user &&user.username}{repository && repository.fullName}</Text>
             <Text style={styles.time}>{setDate(createdAt)}</Text>
             <Text style={styles.discription} key={id}>
                 {text}
@@ -91,8 +92,6 @@ const RespositoryDetails = () => {
     return <SafeAreaView
         style={styles.viewContainer}
     >
-        {/* <RepositoryItem backgroundColor={'#ffff'} data={state} textColor={theme.colors.primary} /> */}
-        {/* {data && <Review review={data.repository.reviews.edges} />} */}
         {data && <FlatList
             data={data.repository.reviews.edges}
             renderItem={({ item }) => <Review review={item} />

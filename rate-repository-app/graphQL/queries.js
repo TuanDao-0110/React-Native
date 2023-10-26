@@ -35,9 +35,7 @@ query Query {
   }
 }
 `
-
-
-export const SINGLE_REPOSITORIES =gql`
+export const SINGLE_REPOSITORIES = gql`
 {
   repository(id: "jaredpalmer.formik") {
     id
@@ -59,7 +57,7 @@ export const SINGLE_REPOSITORIES =gql`
   }
 }
 `
-export const FIND_REPOSITORIES =gql` 
+export const FIND_REPOSITORIES = gql` 
 query ($searchKeyword: String) {
   repositories(searchKeyword: $searchKeyword) {
     edges {
@@ -83,3 +81,28 @@ query ($searchKeyword: String) {
   }
 }
 `
+export const GET_CURRENT_USER = gql`
+  query getCurrentUser($includeReviews: Boolean =true ) {
+    me {
+      id
+      username
+      reviews @include(if: $includeReviews) {
+        edges {
+          node {
+            id
+            createdAt
+            repositoryId
+            text
+            rating
+            repository {
+              fullName
+              name
+              ownerName
+            }
+          }
+        }
+        totalCount
+      }
+    }
+  }
+`;

@@ -1,7 +1,7 @@
 import { View, StyleSheet, Text, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { useNavigate } from 'react-router-native';
-import { review, signup, singin } from '../utils/router';
+import { myView, review, signup, singin } from '../utils/router';
 import useAuthStorage from '../context/authStorageContextHook';
 
 const styles = StyleSheet.create({
@@ -33,7 +33,7 @@ const AppBar = () => {
                 login && <Text onPress={() => { navigate(`/${review}`) }} style={styles.header1}>{review}</Text>
             }
             <Text onPress={() => { navigate(`/${signup}`) }} style={styles.header1}>{!login && signup}</Text>
-
+            <Text onPress={() => { navigate(`/${myView}`) }} style={styles.header1}>{login && myView}</Text>
         </ScrollView>
     </View>;
 };

@@ -13,11 +13,12 @@ import { PaperProvider } from 'react-native-paper';
 export default function App() {
   const authStorage = new Token()
   const [login, setLogin] = useState(false)
+  const [myReview, setMyReview] = useState(null)
   const apolloClient = createApolloClient(authStorage)
   return (
     <NativeRouter>
       <ApolloProvider client={apolloClient}>
-        <AuthStorageContext.Provider value={[authStorage, login, setLogin]}>
+        <AuthStorageContext.Provider value={[authStorage, login, setLogin,myReview,setMyReview]}>
           <PaperProvider>
             <View style={styles.container}>
               <Main key={'main'} />
