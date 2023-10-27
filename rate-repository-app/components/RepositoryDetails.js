@@ -118,10 +118,23 @@ export const Review = ({ review, deleteFn }) => {
 }
 const RespositoryDetails = () => {
     const { state } = useLocation()
-    const { data, loading } = useQuery(SINGLE_REPOSITORIES, {
+    const { data, loading, fetchMore, } = useQuery(SINGLE_REPOSITORIES, {
         fetchPolicy: 'cache-and-network',
-        variables: { repositoryId: state.id }
+        variables: { repositoryId: state.id, first: 1 }
     })
+
+    const onEnd = () => {
+        const canFetchMore = !loading && data?.repository.reviews.pageInfo.hasNextPage;
+        if (!canFetchMore) {
+            return;
+        }
+        fetchMore({
+            variables: {
+                after: data?.repository.reviews.pageInfo.endCursor,
+            },
+        });
+    }
+
     if (loading) { return <Text>loading</Text> }
     return <SafeAreaView
         style={styles.viewContainer}
@@ -135,6 +148,7 @@ const RespositoryDetails = () => {
             ListHeaderComponent={() =>
                 <RepositoryItem backgroundColor={'#ffff'} data={state} textColor={theme.colors.primary} />
             }
+            onEndReached={onEnd}
         />}
 
     </SafeAreaView>

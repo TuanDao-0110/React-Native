@@ -42,10 +42,10 @@ query Query {
 }
 `
 export const SINGLE_REPOSITORIES = gql`
-query Query($repositoryId: ID!) {
+query Query($repositoryId: ID!, $first: Int, $after: String) {
   repository(id: $repositoryId) {
     id
-    reviews {
+    reviews (first: $first, after: $after) {
       edges {
         node {
           id
@@ -57,6 +57,12 @@ query Query($repositoryId: ID!) {
             username
           }
         }
+      }
+      pageInfo {
+        startCursor
+        hasPreviousPage
+        hasNextPage
+        endCursor
       }
     }
   }
