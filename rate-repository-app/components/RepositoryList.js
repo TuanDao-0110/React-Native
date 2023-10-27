@@ -9,15 +9,11 @@ import { GET_REPOSITORIES } from '../graphQL/queries';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { sortArrayOfObjectsByDate } from '../utils/helper';
-import { highestRate, lastestRepo, lowestRate } from '../utils/router';
+import { highestRate, } from '../utils/router';
 import SelectDiago from './SelectDiago';
 import { Icon, MD3Colors } from 'react-native-paper';
 import SearchRepo from './SearchBar';
 import useFindRepo from '../graphQL/hooks/useFIndRepo';
-import { useContext } from 'react';
-import AuthStorageContext from '../context/authStorageContext';
-
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#E1E5E7',
@@ -36,7 +32,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
   }
 });
-export const RepositoryListContainer = ({ repositories, findRepo }) => {
+export const RepositoryListContainer = ({ repositories, findRepo, onEndReach }) => {
   const [selectedId, setSelectedId] = useState('');
   const [sort, setSort] = useState(highestRate)
   const [visible, setVisible] = useState(false);
@@ -51,14 +47,14 @@ export const RepositoryListContainer = ({ repositories, findRepo }) => {
     const color = item.id === selectedId ? theme.colors.primary : theme.colors.textPrimary;
     return <RepositoryItem data={item} backgroundColor={backgroundColor} onPress={() => {
       setSelectedId(item.id)
-      console.log(item)
       naviagate(`/${item.id}`, { state: item })
     }
     } textColor={color}
       key={item.id}
     />;
   };
-
+ 
+  
   return (
     < FlatList
       data={sortArrayOfObjectsByDate(repositoryNodes, sort)}
@@ -87,6 +83,8 @@ export const RepositoryListContainer = ({ repositories, findRepo }) => {
           <SelectDiago setVisible={setVisible} visible={visible} setSort={setSort} />
         </>
       }
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.5}
     />
   );
 };
@@ -95,8 +93,9 @@ export const RepositoryListContainer = ({ repositories, findRepo }) => {
 
 const RepositoryList = () => {
   const [repositories, setRespositories] = useState(null)
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+  const { data, error, loading,fetchMore } = useQuery(GET_REPOSITORIES, {
     fetchPolicy: 'cache-and-network',
+    variables : {first : 2}
   });
   const [findRepo, findRepoData, findRepoLoading, findRepoError, findRepoCalled] = useFindRepo()
   useEffect(() => {
@@ -111,11 +110,27 @@ const RepositoryList = () => {
     if (!loading && !findRepoData) {
       setRespositories(data.repositories)
     }
-  }, [loading])
+  }, [loading,data])
+
+  const onEndReach = () => {
+    handleFetchMore()
+  };
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        after: data.repositories.pageInfo.endCursor,
+      },
+    });
+  };
   return (
     <>
       {
-        !loading ? <RepositoryListContainer repositories={repositories} findRepo={findRepo} /> : <Text style={styles.container}>loading</Text>
+        !loading ? <RepositoryListContainer repositories={repositories} findRepo={findRepo} onEndReach={onEndReach} /> : <Text style={styles.container}>loading</Text>
       }
     </>
   )

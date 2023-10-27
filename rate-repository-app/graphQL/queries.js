@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_REPOSITORIES = gql`
-query Repositories {
-  repositories {
+query Repositories($first: Int, $after: String)   {
+  repositories (first: $first,after: $after)  {
     edges {
       cursor
       node {
@@ -20,6 +20,12 @@ query Repositories {
         reviewCount
         url
       }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
     }
   }
 }
