@@ -142,4 +142,18 @@ Most of the popular React Native Testing concepts are:
 </ul>
 
 
-
+## 5. Extend application: 
+<ul>
+<li>
+Applied <a href='https://github.com/Kaltsoon/rate-repository-api'>GrapQl API Rate-Repositories API</a>
+</li>
+<li>
+Applied <a href='https://formik.org/docs/guides/react-native'>Yup</a> and <a href='https://formik.org/'>Formik</a>
+</li>
+<li>
+Applied <a href='https://fullstackopen.com/en/part10/testing_and_extending_our_application#infinite-scrolling'>Infinite scrolling</a>
+</li>
+<li>
+Additional Resources: <a href='https://reactnativepaper.com/'>React Native Paper</a>, <a href='https://www.react-spring.dev/docs'>React-Spring</a>, <a href='https://styled-components.com/'>Styled Component</a>
+</li>
+</ul>
