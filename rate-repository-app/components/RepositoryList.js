@@ -53,8 +53,8 @@ export const RepositoryListContainer = ({ repositories, findRepo, onEndReach }) 
       key={item.id}
     />;
   };
- 
-  
+
+
   return (
     < FlatList
       data={sortArrayOfObjectsByDate(repositoryNodes, sort)}
@@ -93,44 +93,38 @@ export const RepositoryListContainer = ({ repositories, findRepo, onEndReach }) 
 
 const RepositoryList = () => {
   const [repositories, setRespositories] = useState(null)
-  const { data, error, loading,fetchMore } = useQuery(GET_REPOSITORIES, {
-    fetchPolicy: 'cache-and-network',
-    variables : {first : 2}
-  });
-  const [findRepo, findRepoData, findRepoLoading, findRepoError, findRepoCalled] = useFindRepo()
+  const [findRepo, findRepoData, findRepoLoading, findRepoError, findRepoCalled, fetchMore] = useFindRepo()
   useEffect(() => {
-    if (findRepoData) {
-      if (findRepoData?.repositories.edges.length > 0) {
-        setRespositories(findRepoData.repositories)
-      }
-    }
-  }, [findRepoData, findRepoLoading, findRepoCalled])
-
+    findRepo({
+      variables: { first: 2 }
+    })
+  }, [])
   useEffect(() => {
-    if (!loading && !findRepoData) {
-      setRespositories(data.repositories)
+    console.log(findRepoData)
+    if (findRepoData?.repositories) {
+      setRespositories(findRepoData?.repositories)
     }
-  }, [loading,data])
+  }, [findRepoLoading, findRepoData])
 
   const onEndReach = () => {
     handleFetchMore()
   };
   const handleFetchMore = () => {
-    const canFetchMore = !loading && data?.repositories.pageInfo.hasNextPage;
+    const canFetchMore = !findRepoLoading && findRepoData?.repositories.pageInfo.hasNextPage;
     if (!canFetchMore) {
       return;
     }
 
     fetchMore({
       variables: {
-        after: data.repositories.pageInfo.endCursor,
+        after: findRepoData.repositories.pageInfo.endCursor,
       },
     });
   };
   return (
     <>
       {
-        !loading ? <RepositoryListContainer repositories={repositories} findRepo={findRepo} onEndReach={onEndReach} /> : <Text style={styles.container}>loading</Text>
+        !findRepoLoading ? <RepositoryListContainer repositories={repositories} findRepo={findRepo} onEndReach={onEndReach} /> : <Text style={styles.container}>loading</Text>
       }
     </>
   )

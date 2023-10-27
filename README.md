@@ -180,3 +180,10 @@ Additional Resources: <a href='https://reactnativepaper.com/'>React Native Paper
 <li>Check My Review, Delete, Check My Review's Repository</li>
 <img src='./Screenshot 2023-10-27 at 6.10.38.png' height='500'/>
 <img src='./Screenshot 2023-10-27 at 6.11.43.png' height='500'/>
+
+
+
+
+## Require Backend: 
+
+Please Download backend from this <a href='https://github.com/Kaltsoon/rate-repository-api'> Repository </a> before run Application: 

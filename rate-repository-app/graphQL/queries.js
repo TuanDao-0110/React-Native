@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GET_REPOSITORIES = gql`
-query Repositories($first: Int, $after: String)   {
-  repositories (first: $first,after: $after)  {
+query Repositories($searchKeyword: String,$first: Int, $after: String)   {
+  repositories (first: $first,after: $after,searchKeyword: $searchKeyword)  {
     edges {
       cursor
       node {
@@ -68,30 +68,7 @@ query Query($repositoryId: ID!, $first: Int, $after: String) {
   }
 }
 `
-export const FIND_REPOSITORIES = gql` 
-query ($searchKeyword: String) {
-  repositories(searchKeyword: $searchKeyword) {
-    edges {
-      cursor
-      node {
-        createdAt
-        description
-        forksCount
-        language
-        name
-        id
-        fullName
-        ownerAvatarUrl
-        stargazersCount
-        ratingAverage
-        ownerName
-        reviewCount
-        url
-      }
-    }
-  }
-}
-`
+
 export const GET_CURRENT_USER = gql`
   query getCurrentUser($includeReviews: Boolean =true ) {
     me {

@@ -5,7 +5,14 @@ import { Searchbar } from 'react-native-paper';
 const SearchRepo = ({ findRepo }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const onChangeSearch = query => setSearchQuery(query)
-    const onPressSearch = () => findRepo({ variables: { searchKeyword: searchQuery } })
+    const onPressSearch = () => {
+        if (searchQuery.length > 0) {
+            findRepo({ variables: { searchKeyword: searchQuery } })
+        }
+        else {
+            findRepo({ variables: { first: 2 } })
+        }
+    }
 
 
     return (
