@@ -31,26 +31,26 @@ jobs:
         run: npm run lint-All
       - name: test
         run: npm run test
-      - name: 'success pipeline'
-        if: ${{success()}}
-        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        with:
-          severity: info
-          details: pipe-line successed !
-          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Failure
-        if: ${{failure()}}
-        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        with:
-          severity: error
-          details: pipe-line Failed!
-          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
-      - name: Test Cancelled
-        if: ${{cancelled()}}
-        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
-        with:
-          severity: warn
-          details: pipe-line Cancelled!
-          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      # - name: 'success pipeline'
+      #   if: ${{success()}}
+      #   uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #   with:
+      #     severity: info
+      #     details: pipe-line successed !
+      #     webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      # - name: Test Failure
+      #   if: ${{failure()}}
+      #   uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #   with:
+      #     severity: error
+      #     details: pipe-line Failed!
+      #     webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      # - name: Test Cancelled
+      #   if: ${{cancelled()}}
+      #   uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+      #   with:
+      #     severity: warn
+      #     details: pipe-line Cancelled!
+      #     webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
   
