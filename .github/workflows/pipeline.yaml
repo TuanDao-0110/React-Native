@@ -17,12 +17,12 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: show date
         run: |
           current_date=$(TZ="Europe/Helsinki" date +'%a %b %e %T %Z %Y')
           echo "Current Date (in Finland's time zone): $current_date"
-        with:
-          node-version: 18
       - name: check ls
         run: ls
       - name: instal package
