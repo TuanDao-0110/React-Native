@@ -27,8 +27,7 @@ jobs:
         run: ls
       - name: instal package
         run: |
-          npm config set legacy-peer-deps true
-          npm install
+          npm install --force
       - name: eslint
         run: npm run lint-All
       - name: test
