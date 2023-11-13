@@ -1,0 +1,56 @@
+name: Pipeline
+on: 
+  push: 
+    branches:
+      - main
+  pull-requests:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs: 
+  basic-pipeline: 
+    name: 'basic-pipeline'
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: ./RATE-REPOSITORY-APP/    
+    steps: 
+      - name: show date
+        run: |
+          current_date=$(TZ="Europe/Helsinki" date +'%a %b %e %T %Z %Y')
+          echo "Current Date (in Finland's time zone): $current_date"
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: check ls
+        run: ls
+      - name: instal package
+        run: npm install
+      - name: eslint
+        run: npm run lint-All
+      - name: test
+        run: npm run test
+      - name: 'success pipeline'
+        if: ${{success()}}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: info
+          details: pipe-line successed !
+          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      - name: Test Failure
+        if: ${{failure()}}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: error
+          details: pipe-line Failed!
+          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+      - name: Test Cancelled
+        if: ${{cancelled()}}
+        uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        with:
+          severity: warn
+          details: pipe-line Cancelled!
+          webhookUrl: ${{ secrets.WEBHOOKS_URL }}
+
+  

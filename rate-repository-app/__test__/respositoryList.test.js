@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { render, screen } from '@testing-library/react-native';
 import { RepositoryListContainer } from '../components/RepositoryList';
+import { NativeRouter } from 'react-router-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+
 
 describe('RepositoryList', () => {
     describe('RepositoryListContainer', () => {
@@ -48,8 +51,13 @@ describe('RepositoryList', () => {
                     },
                 ],
             };
-            render(<RepositoryListContainer repositories={repositories} />)
-            // Add your test code here
+            render(
+                        <RepositoryListContainer repositories={repositories} />
+                // <NativeRouter>
+                //     <PaperProvider>
+                //     </PaperProvider>
+                // </NativeRouter>
+            )
             const repositoryItems = screen.getAllByTestId('repositoryItem');
             const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
             for (let i of repositories.edges) {

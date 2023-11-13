@@ -4,8 +4,6 @@ import { FlatList, View, StyleSheet, Text, Pressable, } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useState } from 'react';
 import theme from '../theme/theme';
-import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../graphQL/queries';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { sortArrayOfObjectsByDate } from '../utils/helper';

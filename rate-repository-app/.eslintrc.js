@@ -6,7 +6,7 @@ module.exports =
       'version': 'detect'
     }
   },
-  'extends': ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-native/all','plugin:jest/recommended'],
+  'extends': ['eslint:recommended', 'plugin:react/recommended', 'plugin:react-native/all', 'plugin:jest/recommended'],
   'parser': '@babel/eslint-parser',
   'env': {
     'react-native/react-native': true
@@ -18,7 +18,6 @@ module.exports =
     'quotes' : ['error', 'single'],
     'react-native/no-color-literals': 0,
     'react-native/sort-styles' :0,
-
   }
 }
 
