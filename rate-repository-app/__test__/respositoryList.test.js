@@ -52,11 +52,11 @@ describe('RepositoryList', () => {
                 ],
             };
             render(
-                        <RepositoryListContainer repositories={repositories} />
-                // <NativeRouter>
-                //     <PaperProvider>
-                //     </PaperProvider>
-                // </NativeRouter>
+                <NativeRouter>
+                    <PaperProvider>
+                    <RepositoryListContainer repositories={repositories} />
+                    </PaperProvider>
+                </NativeRouter>
             )
             const repositoryItems = screen.getAllByTestId('repositoryItem');
             const [firstRepositoryItem, secondRepositoryItem] = repositoryItems;
