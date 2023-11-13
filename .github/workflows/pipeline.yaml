@@ -1,36 +1,36 @@
-name: Pipeline
-on: 
-  push: 
-    branches:
-      - main
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize]
+# name: Pipeline
+# on: 
+#   push: 
+#     branches:
+#       - main
+#   pull_request:
+#     branches: [main]
+#     types: [opened, synchronize]
 
-jobs: 
-  basic-pipeline: 
-    name: 'basic-pipeline'
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
-        working-directory: ./RATE-REPOSITORY-APP/    
-    steps: 
-      - name: show date
-        run: |
-          current_date=$(TZ="Europe/Helsinki" date +'%a %b %e %T %Z %Y')
-          echo "Current Date (in Finland's time zone): $current_date"
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: check ls
-        run: ls
-      - name: instal package
-        run: npm install
-      - name: eslint
-        run: npm run lint-All
-      - name: test
-        run: npm run test
+# jobs: 
+#   basic-pipeline: 
+#     name: 'basic-pipeline'
+#     runs-on: ubuntu-20.04
+#     defaults:
+#       run:
+#         working-directory: ./RATE-REPOSITORY-APP/    
+#     steps: 
+#       - name: show date
+#         run: |
+#           current_date=$(TZ="Europe/Helsinki" date +'%a %b %e %T %Z %Y')
+#           echo "Current Date (in Finland's time zone): $current_date"
+#       - uses: actions/checkout@v3
+#       - uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
+#       - name: check ls
+#         run: ls
+#       - name: instal package
+#         run: npm install
+#       - name: eslint
+#         run: npm run lint-All
+#       - name: test
+#         run: npm run test
       # - name: 'success pipeline'
       #   if: ${{success()}}
       #   uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
@@ -54,3 +54,33 @@ jobs:
       #     webhookUrl: ${{ secrets.WEBHOOKS_URL }}
 
   
+
+
+
+
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  hello_world_job:
+    name: Hello World
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Say hello
+        run: |
+          echo "Hello World!"
+      - name: show date
+        run: |
+          current_date=$(TZ="Europe/Helsinki" date +'%a %b %e %T %Z %Y')
+          echo "Current Date (in Finland's time zone): $current_date"
+      - name: Run ls -l
+        run: |
+          current_content=$(ls -l)
+          echo $current_content
