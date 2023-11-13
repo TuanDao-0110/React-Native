@@ -1,9 +1,10 @@
 name: Pipeline
+
 on: 
   push: 
     branches:
       - main
-  pull-requests:
+  pull-request:
     branches: [main]
     types: [opened, synchronize]
 
